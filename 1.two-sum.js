@@ -5,16 +5,21 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-  const map = new Map();
-	
-  for (let i = 0; i < nums.length; i++) {
-    const diff = target - nums[i];
+  const arr = nums.map((val, idx) => [val, idx]);
+  arr.sort((a, b) => a[0] - b[0]);  // Ordenar por valor
 
-    if (map.has(diff)) {
-      return [map.get(diff), i];
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    const sum = arr[left][0] + arr[right][0];
+    if (sum === target) {
+      return [arr[left][1], arr[right][1]];
+    } else if (sum < target) {
+      left++;
+    } else {
+      right--;
     }
-
-    map.set(nums[i], i);
-  }
+  }    
 };
 // @leet end
